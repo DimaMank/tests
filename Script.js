@@ -43,13 +43,22 @@ isMathExpretion();
 
 function calculat(){
     var index;
+    var mult;
+    var  res;
+    var sum;
+    var  deg;
     for (index = 0; index < calc.length; index++) {
         console.log(calc[index]);
         var elem = calc[index];
-        if (elem === "x") {'index--' * 'index++'}
-        if (elem === "+") {"previousElementSibling" * "nextElementSibling"}
-        else {alert('ПОдсчитали!');
-            break}
+        if (elem === "x") {mult = calc[index-1] * calc[index + 1]}
+        else if (elem === "+") {sum = calc[index-1] + calc[index + 1]}
+        else if (elem === "-") {res = calc[index-1] - calc[index + 1]}
+        else if (elem === ":") {deg = calc[index-1] / calc[index + 1]}
+        else {console.log("Ready")}
+        if ((index + 1) > calc.length ) {break}
+        else if (index < 0) {break}
+        else {console.log("Продолжаем")
+    }
 
     }
 }
