@@ -35,30 +35,42 @@ function isMathExpretion(){
         var quest = calc[index];
         if (quest in arrMath) {console.log("True, это мат выражение!");}
         else {alert('false, это не мат выражение!');
-            break}
+            }
 
     }
 }
 isMathExpretion();
 
-function calculat(){
-    var index;
-    var mult;
-    var  res;
-    var sum;
-    var  deg;
-    for (index = 0; index < calc.length; index++) {
-        console.log(calc[index]);
-        var elem = calc[index];
-        if (elem === "x") {mult = calc[index-1] * calc[index + 1]}
-        else if (elem === "+") {sum = calc[index-1] + calc[index + 1]}
-        else if (elem === "-") {res = calc[index-1] - calc[index + 1]}
-        else if (elem === ":") {deg = calc[index-1] / calc[index + 1]}
-        else {console.log("Ready")}
-        if ((index + 1) > calc.length ) {break}
-        else if (index < 0) {break}
-        else {console.log("Продолжаем")
-    }
 
+    function calculat(){
+
+        for (index = 0; index < calc.length; index++) {
+            console.log(calc[index]);
+            var elem = calc[index];
+            if (elem === "x") {var mult = calc[index-1] * calc[index + 1]}
+            else if (elem === "+") {var sum = calc[index-1] + calc[index + 1]}
+            else if (elem === "-") {var res = calc[index-1] - calc[index + 1]}
+            else if (elem === ":") {var deg = calc[index-1] / calc[index + 1]}
+            else if (elem === "(") {parenthesis()}
+            else {console.log("Ready")}
+            if ((index + 1) > calc.length ) {break}
+            else if (index < 0) {break}
+            else {console.log("Продолжаем")
+            }
+
+        }
+        var parent = parenthesis();
+        function parenthesis(){
+            for (index = 0; index < calc.length; index++) {
+                console.log(calc[index]);
+                var elem = calc[index];
+                if (elem === "x") {var mult = calc[index-1] * calc[index + 1]}
+                else if (elem === "+") {var sum = calc[index-1] + calc[index + 1]}
+                else if (elem === "-") {var res = calc[index-1] - calc[index + 1]}
+                else if (elem === ":") {var deg = calc[index-1] / calc[index + 1]}
+                else if (elem === ")") {break}
+                else {console.log("Error")}
+
+            }}
+        var parent = parenthesis();
     }
-}
