@@ -52,6 +52,7 @@ function isMathExpression() {
     }
     alert(resultat);
 }
+//Проверка
 
 function calculat() {
     var parent, index;
