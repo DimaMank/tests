@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script type="text/javascript" src="style.js"> </script>
+    <script type="text/javascript" src="Script.js"></script>
     <link href="sty.css" rel="stylesheet">
 </head>
 <body>
-<input id='calc' >
-<input id='calculation' type='button' value='вычислить'>
-<div id='res' style="color: blue"></div>
-
-
+<input type="text" id='calc' value="">
+<button type="button" id='isValid' onclick="isMathExpression()">Is valid math expression?</button>
+<button type="button" id='calculation' onclick="calculat()">Calculate</button>
+<div id='outcome' style="color: blue"></div>
+<div id='checked' style="color: blue"></div>
 </body>
 </html>
 
