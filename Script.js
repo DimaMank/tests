@@ -1,15 +1,15 @@
-var calc = '2x2+2';
+var calc = '2+58x4';
 var arrMath = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+', '-', ':', 'x', '(', ')'];
 
 // PRIVATE
 
-function isMathExpression() {
+function isMathExpression(str) {
     var index;
     var quest;
 
-    for (index = 0; index < calc.length; index++) {
-        console.log(calc[index]);
-        quest = calc[index];
+    for (index = 0; index < str.length; index++) {
+        console.log(str[index]);
+        quest = str[index];
 
         if (arrMath.indexOf(quest) >= 0) {
             result = true;
@@ -20,30 +20,30 @@ function isMathExpression() {
         }
     }
 
-    checked.innerHTML = result;
+    return result;
 }
 //Проверка
 
-function calculat() {
+function calculat(str) {
     var index, mult, sum, res, deg, brackets;
 
-    for (index = 0; index < calc.length; index++) {
-        var elem = calc[index];
+    for (index = 0; index < str.length; index++) {
+        var elem = str[index];
 
 
-        console.log(calc[index]);
+        console.log(str[index]);
 
         if (elem === 'x') {
-            mult = calc[index - 1] * calc[index + 1];
+            mult = str[index - 1] * str[index + 1];
 
         } else if (elem === '+') {
-            sum = calc[index - 1] + calc[index + 1];
+            sum = str[index - 1] + str[index + 1];
 
         } else if (elem === '-') {
-            res = calc[index - 1] - calc[index + 1];
+            res = str[index - 1] - str[index + 1];
 
         } else if (elem === ':') {
-            deg = calc[index - 1] / calc[index + 1];
+            deg = str[index - 1] / str[index + 1];
 
         } else if (elem === '(') {
             brackets = parenthesis();
@@ -60,21 +60,21 @@ function calculat() {
     function parenthesis() {
         var index, elem, mult, sum, res, deg;
 
-        for (index = 0; index < calc.length; index++) {
-            console.log(calc[index]);
-            elem = calc[index];
+        for (index = 0; index < str.length; index++) {
+            console.log(str[index]);
+            elem = str[index];
 
             if (elem === 'x') {
-                mult = calc[index - 1] * calc[index + 1]
+                mult = str[index - 1] * str[index + 1]
 
             } else if (elem === '+') {
-                sum = calc[index - 1] + calc[index + 1]
+                sum = str[index - 1] + str[index + 1]
 
             } else if (elem === '-') {
-                res = calc[index - 1] - calc[index + 1]
+                res = str[index - 1] - str[index + 1]
 
             } else if (elem === ':') {
-                deg = calc[index - 1] / calc[index + 1]
+                deg = str[index - 1] / str[index + 1]
 
             } else if (elem === ')') {
                 break
