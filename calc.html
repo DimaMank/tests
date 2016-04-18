@@ -7,11 +7,22 @@
     <link href="sty.css" rel="stylesheet">
 </head>
 <body>
-<input type="text" id='calc' value="">
-<button type="button" id='isValid' onclick="isMathExpression(calc)">Is valid math expression?</button>
-<button type="button" id='calculation' onclick="calculat(calc)">Calculate</button>
-<div id='outcome' style="color: blue"></div>
-<div id='checked' style="color: blue"></div>
+<input type="text" id="expression" value="">
+<button type="button" id="isValid">Is valid math expression?</button>
+<button type="button" id="calculate">Calculate</button>
+<div id="outcomeTrue" style= "background-color: lightgreen"></div>
+<div id="outcomeFalse" style= "background-color: red"></div>
+<div id="check" style="color: blue"></div>
+<script>
+    var use = function () {
+        getValue();
+        isMathExpression(calc);
+        resOutput();
+        backColor()
+    };
+    document.getElementById('isValid').addEventListener('click', use);
+
+</script>
 </body>
 </html>
 
