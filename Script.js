@@ -1,16 +1,27 @@
-var calc = "";
+
+'use strict';
+
+const ID_EXPRESSION = 'expression';
+const ID_MESSAGE = 'message';
+const TYPE_ERROR = 20;
+const TYPE_SUCCESS = 10;
+
 var arrMath = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+', '-', ':', 'x', '(', ')'];
 
 // PRIVATE
-function getValue() {
-    calc = document.getElementById("expression")
+function getInputExpression() {
+    // УДАЛИТЬ ИЗ СТРОКИ value пробелы String.trim()
+    return document.getElementById(ID_EXPRESSION).value;
 }
+
 function isMathExpression(str) {
     var index;
     var quest;
-    for (index = 0; index < str.value.length; index++) {
-        console.log(str.value[index]);
-        quest = str.value[index];
+    var result;
+
+    for (index = 0; index < str.length; index++) {
+        console.log(str[index]);
+        quest = str[index];
 
         if (arrMath.indexOf(quest) >= 0) {
             result = true;
@@ -20,26 +31,46 @@ function isMathExpression(str) {
             break
         }
     }
-    return result
+
+    return result;
 }
 
-function resOutput() {
-        if (result === true) {
-            document.getElementById("outcomeTrue").innerHTML = "Это математическое выражение"
-        }
-        else {
-            document.getElementById("outcomeFalse").innerText = "Это не математическое выражение"
-        }
+function getMessageNode () {
+    return document.getElementById(ID_MESSAGE);
 }
 
-function backColor() {
-    if (result === true) {
-        document.getElementById("outcomeTrue").backgroundColor = "green";
+function showMessage(text, type) {
+    var message = getMessageNode();
+
+    message.innerHTML = text;
+
+    if (type === TYPE_SUCCESS) {
+        message.style.backgroundColor = 'green';
+        message.style.color = 'white';
+
+    }   else if (type === TYPE_ERROR) {
+        message.style.backgroundColor = 'red';
+        message.style.color = 'yellow';
+
+    } else {
+        throw new Error('Unknow message type')
     }
-    else {
-        document.getElementById("outcomeFalse").backgroundColor = "red";
-    }
+
 }
+
+function onCheckExpression() {
+    var expresstion = getInputExpression();
+    var isValidExpression = isMathExpression(expresstion);
+
+    if (isValidExpression){
+        showMessage('It\'s math expression', TYPE_SUCCESS);
+
+    } else {
+        showMessage('It is not math expression', TYPE_ERROR);
+    }
+};
+
+document.getElementById('buttonCheckExpression').addEventListener('click', onCheckExpression);
 //Проверка
 
 // function calculat(str) {
