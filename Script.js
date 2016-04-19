@@ -1,4 +1,3 @@
-
 'use strict';
 
 const ID_EXPRESSION = 'expression';
@@ -11,7 +10,7 @@ var arrMath = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+', '-', ':', 
 // PRIVATE
 function getInputExpression() {
     // УДАЛИТЬ ИЗ СТРОКИ value пробелы String.trim()
-    return document.getElementById(ID_EXPRESSION).value;
+    return document.getElementById(ID_EXPRESSION).value.replace( / /g, "" );
 }
 
 function isMathExpression(str) {
@@ -35,7 +34,7 @@ function isMathExpression(str) {
     return result;
 }
 
-function getMessageNode () {
+function getMessageNode() {
     return document.getElementById(ID_MESSAGE);
 }
 
@@ -48,7 +47,7 @@ function showMessage(text, type) {
         message.style.backgroundColor = 'green';
         message.style.color = 'white';
 
-    }   else if (type === TYPE_ERROR) {
+    } else if (type === TYPE_ERROR) {
         message.style.backgroundColor = 'red';
         message.style.color = 'yellow';
 
@@ -62,18 +61,30 @@ function onCheckExpression() {
     var expresstion = getInputExpression();
     var isValidExpression = isMathExpression(expresstion);
 
-    if (isValidExpression){
+    if (isValidExpression) {
         showMessage('It\'s math expression', TYPE_SUCCESS);
 
     } else {
         showMessage('It is not math expression', TYPE_ERROR);
     }
-};
+}
 
 document.getElementById('buttonCheckExpression').addEventListener('click', onCheckExpression);
 //Проверка
 
-// function calculat(str) {
+function shawResult(text) {
+    result.innerHTML = text;
+}
+
+function onCalculate() {
+    var expresstion = getInputExpression();
+    // var calculationResult = calculate(expresstion);
+    shawResult('0');
+    //Это все буду исправлять когда будем дальше продвигаться, пока оно просто выводит то что ты сказал.
+}
+
+document.getElementById('buttonCalculate').addEventListener('click', onCalculate);
+// function calculate(str) {
 //     var index, mult, sum, res, deg, brackets;
 //
 //     for (index = 0; index < str.length; index++) {
