@@ -40,7 +40,7 @@ function getMessageNode() {
 
 function showMessage(text, type) {
     var message = getMessageNode();
-
+    type = type || 'TYPE_SUCCESS';
     message.innerHTML = text;
 
     if (type === TYPE_SUCCESS) {
