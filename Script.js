@@ -10,7 +10,7 @@ var arrMath = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+', '-', ':', 
 // PRIVATE
 function getInputExpression() {
     // УДАЛИТЬ ИЗ СТРОКИ value пробелы String.trim()
-    return document.getElementById(ID_EXPRESSION).value.replace( / /g, "" );
+    return document.getElementById(ID_EXPRESSION).value.replace(/ /g, "");
 }
 
 function isMathExpression(str) {
@@ -40,7 +40,7 @@ function getMessageNode() {
 
 function showMessage(text, type) {
     var message = getMessageNode();
-    type = type || 'TYPE_SUCCESS';
+    type = type || TYPE_SUCCESS;
     message.innerHTML = text;
 
     if (type === TYPE_SUCCESS) {
@@ -72,51 +72,54 @@ function onCheckExpression() {
 document.getElementById('buttonCheckExpression').addEventListener('click', onCheckExpression);
 //Проверка
 
-function shawResult(text) {
-    result.innerHTML = text;
+function showResult(text) {
+    calculationResult.innerHTML = text;
 }
 
 function onCalculate() {
     var expresstion = getInputExpression();
-    // var calculationResult = calculate(expresstion);
-    shawResult('0');
+    var calculationResult = calculate(expresstion);
+    showResult(calculationResult);
     //Это все буду исправлять когда будем дальше продвигаться, пока оно просто выводит то что ты сказал.
 }
 
 document.getElementById('buttonCalculate').addEventListener('click', onCalculate);
-// function calculate(str) {
-//     var index, mult, sum, res, deg, brackets;
+function calculate(str) {
+    var index;
+    var resultArray = [];
+    for (index = 0; index < str.length; index++) {
+        var elem = str[index];
+
+
+        console.log(str[index]);
+
+        if (elem === 'x') {
+            var arrayMult = str.split('x');
+            resultArray.push(arrayMult[0] * arrayMult[1])
+
+        } else if (elem === '+') {
+            var arraySum = str.split('+');
+            resultArray.push(arraySum[0] + arraySum[1])
+
+        } else if (elem === '-') {
+            var arrayDeg = str.split('x');
+            resultArray.push(arrayDeg[0] * arrayDeg[1])
+
+        } else if (elem === ':') {
+            var arrayRes = str.split('x');
+            resultArray.push(arrayRes[0] * arrayRes[1])
+
+        } else if (elem === '(') {
+            resultArray.push = parenthesis();
+
+        } else {
+            console.log("Next")
+        }
+    }
+    return resultArray;
+}
 //
-//     for (index = 0; index < str.length; index++) {
-//         var elem = str[index];
-//
-//
-//         console.log(str[index]);
-//
-//         if (elem === 'x') {
-//             mult = str[index - 1] * str[index + 1];
-//
-//         } else if (elem === '+') {
-//             sum = str[index - 1] + str[index + 1];
-//
-//         } else if (elem === '-') {
-//             res = str[index - 1] - str[index + 1];
-//
-//         } else if (elem === ':') {
-//             deg = str[index - 1] / str[index + 1];
-//
-//         } else if (elem === '(') {
-//             brackets = parenthesis();
-//
-//         } else {
-//             console.log('Next')
-//         }
-//
-//     }
-//
-//     result = mult + sum + res + deg + brackets;
-//
-//     outcome.innerHTML = result;
+
 //     function parenthesis() {
 //         var index, elem, mult, sum, res, deg;
 //
@@ -141,8 +144,10 @@ document.getElementById('buttonCalculate').addEventListener('click', onCalculate
 //
 //             }
 //             else {
-//                 console.log('Error')
+//                 throw new Error('Unknow variable')
 //             }
+//             result = mult + sum + res + deg + brackets;
+//             return result
 //
 //         }
 //     }
