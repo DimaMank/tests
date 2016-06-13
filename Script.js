@@ -190,12 +190,14 @@ function myParceInt(str) {
     return number
 }
 
-function calculate(){
-    let arr = ["-35","+","38","/";"2"];
+function calculate() {
+    let arr = ["-35", "+", "38", "/";
+    "2"
+]
+    ;
     for (let index = 0; index <= arr.length - 1; index++) {
         let elem = arr[index];
 
-        }
     }
 }
 //function calculate(str) {
