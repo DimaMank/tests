@@ -191,10 +191,7 @@ function myParceInt(str) {
 }
 
 function calculate() {
-    let arr = ["-35", "+", "38", "/";
-    "2"
-]
-    ;
+    let arr = ["-35", "+", "38", "/", "2"];
     for (let index = 0; index <= arr.length - 1; index++) {
         let elem = arr[index];
 
