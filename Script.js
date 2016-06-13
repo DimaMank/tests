@@ -192,10 +192,38 @@ function myParceInt(str) {
 
 function calculate() {
     let arr = ["-35", "+", "38", "/", "2"];
+    let symbols = ["+", "-"];
     for (let index = 0; index <= arr.length - 1; index++) {
         let elem = arr[index];
-
+        if (elem === "/") {
+            let resElem = arr[index - 1] / arr[index + 1];
+            arr.splice(arr[index - 1], elem, arr[index + 1], resElem);
+        }
+        else if (elem === "*") {
+            let multElem = arr[index - 1] * arr[index + 1];
+            arr.splice(arr[index - 1], elem, arr[index + 1], multElem);
+        }
+        else (symbols.indexOf(elem) === -1)
+        {
+            continue;
+        }
     }
+    for (let index = 0; index <= arr.length - 1; index++) {
+        let elem = arr[index];
+        if (elem === "-") {
+            let resElem = arr[index - 1] - arr[index + 1];
+            arr.splice(arr[index - 1], elem, arr[index + 1], resElem);
+        }
+        else if (elem === "+") {
+            let multElem = arr[index - 1] + arr[index + 1];
+            arr.splice(arr[index - 1], elem, arr[index + 1], multElem);
+        }
+        else (symbols.indexOf(elem) === -1)
+        {
+            continue;
+        }
+    }
+    return arr;
 }
 //function calculate(str) {
 //    let index;
