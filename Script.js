@@ -4,8 +4,11 @@ const ID_EXPRESSION = 'expression';
 const ID_MESSAGE = 'message';
 const TYPE_ERROR = 20;
 const TYPE_SUCCESS = 10;
+const AVAILABLESYMBOLS = '0123456789';
+const SINGS = '-+:x';
+//let str = '-35+3879-sd';
 
-var arrMath = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+', '-', ':', 'x', '(', ')'];
+let arrMath = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+', '-', ':', 'x', '(', ')'];
 
 // PRIVATE
 function getInputExpression() {
@@ -14,9 +17,9 @@ function getInputExpression() {
 }
 
 function isMathExpression(str) {
-    var index;
-    var quest;
-    var result;
+    let index;
+    let quest;
+    let result;
 
     for (index = 0; index < str.length; index++) {
         console.log(str[index]);
@@ -39,7 +42,7 @@ function getMessageNode() {
 }
 
 function showMessage(text, type) {
-    var message = getMessageNode();
+    let message = getMessageNode();
     type = type || TYPE_SUCCESS;
     message.innerHTML = text;
 
@@ -58,8 +61,8 @@ function showMessage(text, type) {
 }
 
 function onCheckExpression() {
-    var expresstion = getInputExpression();
-    var isValidExpression = isMathExpression(expresstion);
+    let expresstion = getInputExpression();
+    let isValidExpression = isMathExpression(expresstion);
 
     if (isValidExpression) {
         showMessage('It\'s math expression', TYPE_SUCCESS);
@@ -77,51 +80,162 @@ function showResult(text) {
 }
 
 function onCalculate() {
-    var expresstion = getInputExpression();
-    var calculationResult = calculate(expresstion);
+    let str = getInputExpression();
+    let expressionSings = checkedSing(str);
+    let parsedExpression = myParceInt(str);
+//функция объеденяет числа с нужными действиями
+    function makingExpression() {
+        let finishExpression = [];
+        for (index; index < parsedExpression.length; index++) {
+            finishExpression.push(parsedExpression[index]);
+        }
+        for (index; index < expressionSings.length; index++) {
+            finishExpression.push(expressionSings[index]);
+        }
+        return finishExpression;
+    }
+
+    let finalExpression = makingExpression();
+    let calculationResult = calculate(finalExpression);
     showResult(calculationResult);
     //Это все буду исправлять когда будем дальше продвигаться, пока оно просто выводит то что ты сказал.
 }
 
 document.getElementById('buttonCalculate').addEventListener('click', onCalculate);
-function calculate(str) {
-    var index;
-    var resultArray = [];
-    for (index = 0; index < str.length; index++) {
-        var elem = str[index];
+
+//вырезаем арифм знаки
+function checkedSing(str) {
+    let expressionSings = [];
+    for (index; index < str.length; index++) {
+        let elem = str[index];
+        if (SINGS.indexOf(elem) === -1) {
+            break;
+        }
+        expressionSings.push(elem)
+    }
+    return expressionSings;
+}
+
+//парсим строку
+function myParceInt(str) {
+    let sing = getSign(str);
+    let digits = getDigits(str);
+    let number = number + getNumber(digits);
+
+    function getSign(str) {
+        return str[0] === '-' ? -1 : 1;
+    }
+
+    function getDigits(str) {
 
 
-        console.log(str[index]);
+        let numbers = [];
+        let digitValues = {
+            1: 1,
+            2: 2,
+            3: 3,
+            4: 4,
+            5: 5,
+            6: 6,
+            7: 7,
+            8: 8,
+            9: 9,
+            0: 0
+        };
 
-        if (elem === 'x') {
-            var arrayMult = str.split('x');
-            resultArray.push(arrayMult[0] * arrayMult[1])
 
-        } else if (elem === '+') {
-            var arraySum = str.split('+');
-            resultArray.push(arraySum[0] + arraySum[1])
+        let index = 0;
+        if (str[0] === '-' || str[0] === '+') {
+            index = 1;
+        }
+        if (str[0] === ':' || str[0] === 'x') {
+            str.replace(str[0], "");
+        }
+        for (index; index < str.length; index++) {
+            let elem = str[index];
+            if (AVAILABLESYMBOLS.indexOf(elem) === -1) {
+                break;
+            }
+            numbers.push(digitValues[elem])
+        }
 
-        } else if (elem === '-') {
-            var arrayDeg = str.split('x');
-            resultArray.push(arrayDeg[0] * arrayDeg[1])
+        return numbers;
+        str.replace(numbers, "");
 
-        } else if (elem === ':') {
-            var arrayRes = str.split('x');
-            resultArray.push(arrayRes[0] * arrayRes[1])
 
-        } else if (elem === '(') {
-            resultArray.push = parenthesis();
+    }
 
-        } else {
-            console.log("Next")
+    function getNumber(digits) {
+
+        if (digits.length === 0) {
+            return NaN;
+        }
+        else if (digits.length === 1) {
+            return digits[0]
+        }
+        else {
+            let multiplier = 1;
+            let sum = 0;
+
+            for (let index = digits.length - 1; index >= 0; index--) {
+
+                sum += digits[index] * multiplier;
+                multiplier *= 10;
+            }
+            return sum * sing;
+        }
+
+    }
+
+    return number
+}
+
+function calculate(){
+    let arr = ["-35","+","38","/";"2"];
+    for (let index = 0; index <= arr.length - 1; index++) {
+        let elem = arr[index];
+
         }
     }
-    return resultArray;
 }
+//function calculate(str) {
+//    let index;
+//    let resultArray = [];
+//    for (index = 0; index < str.length; index++) {
+//        let elem = str[index];
+//
+//
+//        console.log(str[index]);
+//
+//        if (elem === 'x') {
+//            let arrayMult = str.split('x');
+//            resultArray.push(arrayMult[0] * arrayMult[1])
+//
+//        } else if (elem === '+') {
+//            let arraySum = str.split('+');
+//            resultArray.push(arraySum[0] + arraySum[1])
+//
+//        } else if (elem === '-') {
+//            let arrayDeg = str.split('-');
+//            resultArray.push(arrayDeg[0] - arrayDeg[1])
+//
+//        } else if (elem === ':') {
+//            let arrayRes = str.split(':');
+//            resultArray.push(arrayRes[0] / arrayRes[1])
+//
+//        } else if (elem === '(') {
+//            resultArray.push = parenthesis();
+//
+//        } else {
+//            console.log("Next")
+//        }
+//    }
+//    return resultArray;
+//}
 //
 
 //     function parenthesis() {
-//         var index, elem, mult, sum, res, deg;
+//         let index, elem, mult, sum, res, deg;
 //
 //         for (index = 0; index < str.length; index++) {
 //             console.log(str[index]);
@@ -144,7 +258,7 @@ function calculate(str) {
 //
 //             }
 //             else {
-//                 throw new Error('Unknow variable')
+//                 throw new Error('Unknow letiable')
 //             }
 //             result = mult + sum + res + deg + brackets;
 //             return result
